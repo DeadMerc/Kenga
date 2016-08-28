@@ -1,0 +1,8 @@
+{
+  "name": "Kenga app",
+  "version": "0.1.0",
+  "description": "RestFull api docs",
+  "title": "Api docs",
+  "url": "/api",
+  "sampleUrl": "/api"
+}
