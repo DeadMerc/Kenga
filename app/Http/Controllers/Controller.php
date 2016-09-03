@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use Mockery\CountValidator\Exception;
 
 class Controller extends BaseController
 {
@@ -67,10 +68,7 @@ class Controller extends BaseController
             }
             return $this->helpReturn($model);
         } else {
-            if ($bool) {
-                return $valid;
-            }
-            return $this->helpError('valid', $valid);
+            throw new Exception(implode(',',$valid->errors()->all()),100);
         }
     }
 
@@ -122,6 +120,7 @@ class Controller extends BaseController
 
     public function helpReturn($response, $info = false, $message = false) {
         $arrayForResponse['response'] = $response;
+        $arrayForResponse['message'] = false;
         if ($info) {
             $arrayForResponse['info'] = $info;
         }

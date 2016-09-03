@@ -20,13 +20,13 @@ class AuthByToken
         if($request->header('token')){
             $user = User::where('api_token',$request->header('token'))->first();
             if(!$user){
-                throw new Exception('Api token is invalid');
+                throw new Exception('Api token is invalid',100);
             }else{
                 $request->user = $user;
             }
             return $next($request);
         }else{
-            throw new Exception('Api token is missing');
+            throw new Exception('Api token is missing',100);
         }
     }
 }

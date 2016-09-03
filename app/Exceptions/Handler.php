@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
             return response($controller->helpError($e->getMessage()));
         }
         if($e->getCode() == 100){
-            return $controller->helpError($e->getMessage());
+            return response($controller->helpError($e->getMessage()));
         }
         return parent::render($request, $e);
     }

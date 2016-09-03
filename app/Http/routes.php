@@ -19,8 +19,13 @@ Route::group([ 'prefix' => 'api'], function () {
     Route::group([ 'prefix' => 'v1'], function () {
         Route::post('users','UsersController@login');
 
+        Route::post('lessons','LessonsController@store');
+        Route::put('lessons/{id}','LessonsController@update');
         Route::group([ 'middleware' => \App\Http\Middleware\AuthByToken::class], function () {
             Route::put('users','UsersController@update');
+            Route::get('lessons','LessonsController@showAll');
+
+            Route::post('payments/check','PaymentsController@checkPurchase');
         });
     });
 });

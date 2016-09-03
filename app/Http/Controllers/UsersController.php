@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\User_Lesson;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -30,8 +31,11 @@ class UsersController extends Controller
                 $user->social_token = $request->social_token;
                 $user->api_token = md5($request->social_token.rand(999,99999));
                 $user->save();
+
+                $user_lesson = new User_Lesson(['user_id'=>$user->id,'lesson_id'=>'1']);
+                $user_lesson->save();
             }
-            return $this->helpReturn($user);
+            return $this->helpReturn(User::with('lessons')->find($user->id));
         }
     }
     /**
@@ -51,6 +55,6 @@ class UsersController extends Controller
      */
     public function update(Request $request){
         $rules = ['name'=>false,'age'=>false,'city'=>false,'email'=>false];
-        return $this->fromPostToModel($rules,User::findorfail($request->user->id),$request,'model');
+        return $this->fromPostToModel($rules,User::with('lessons')->findorfail($request->user->id),$request,'model');
     }
 }
