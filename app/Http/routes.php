@@ -25,6 +25,8 @@ Route::group([ 'prefix' => 'api'], function () {
             Route::put('users','UsersController@update');
             Route::get('lessons','LessonsController@showAll');
 
+            Route::resource('products','ProductsController');
+
             Route::post('payments/check','PaymentsController@checkPurchase');
         });
     });

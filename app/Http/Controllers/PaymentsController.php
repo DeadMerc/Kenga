@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\User_Lesson;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,42 @@ class PaymentsController extends Controller
         }else{
             throw new Exception('Lessons is not valid json array',100);
         }
+
+    }
+    /**
+     * @api {post} /v1/payments/check PaymentCheck
+     * @apiVersion 0.2.0
+     * @apiName PaymentCheck
+     * @apiGroup Payments
+     * @apiDescription Проверка покупки по хешу, так же добавление новые доступных уроков по хешу, пример покупки http://prntscr.com/cdogm2
+     *
+     *
+     * @apiParam {string} payment_hash Хеш с покупки для её проверки
+     * @apiParam {array} google_id
+     * @apiParam {string} security_hash Хеш для подтверждения отправителя, создаётся как sha1('NBA'+payment_hash+googleId+'VICTORY') при тесте, показывает, какой хеш ожидает система
+     */
+    public function checkPurchaseV2(Request $request){
+        $rules = [
+            'payment_hash'=>'required',
+            'google_id'=>'required',
+            'security_hash'=>'required'
+        ];
+        $valid = Validator($request->all(),$rules);
+        if($valid->fails()){
+            throw new Exception(implode(',',$valid->errors()->all()),100);
+        }
+        $security_hash = sha1('NBA'.$request->payment_hash.$request->google_id.'VICTORY');
+        if($security_hash != $request->security_hash){
+            throw new Exception('Hash is wrong, i want like this:'.$security_hash,100);
+        }
+        $products = Product::where('google_id',$request->google_id)->first();
+        $lessons = explode(',',$products);
+        if(is_array($lessons)){
+            foreach($lessons as $lesson) {
+                User_Lesson::firstOrCreate(['user_id'=>$request->user->id,'lesson_id'=>$lesson]);
+            }
+        }
+        return $this->helpInfo();
 
     }
 }

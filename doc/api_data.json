@@ -142,6 +142,49 @@
     "type": "post",
     "url": "/v1/payments/check",
     "title": "PaymentCheck",
+    "version": "0.2.0",
+    "name": "PaymentCheck",
+    "group": "Payments",
+    "description": "<p>Проверка покупки по хешу, так же добавление новые доступных уроков по хешу, пример покупки http://prntscr.com/cdogm2</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "payment_hash",
+            "description": "<p>Хеш с покупки для её проверки</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>array</p> ",
+            "optional": false,
+            "field": "google_id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "security_hash",
+            "description": "<p>Хеш для подтверждения отправителя, создаётся как sha1('NBA'+payment_hash+googleId+'VICTORY') при тесте, показывает, какой хеш ожидает система</p> "
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/PaymentsController.php",
+    "groupTitle": "Payments",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/payments/check"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/v1/payments/check",
+    "title": "PaymentCheck",
     "version": "0.1.0",
     "name": "PaymentCheck",
     "group": "Payments",
@@ -178,6 +221,174 @@
     "sampleRequest": [
       {
         "url": "/api/v1/payments/check"
+      }
+    ]
+  },
+  {
+    "type": "delete",
+    "url": "/v1/products/:id",
+    "title": "deleteProducts",
+    "version": "0.1.0",
+    "name": "deleteProducts",
+    "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/ProductsController.php",
+    "groupTitle": "Products",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/products/:id"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/v1/products/:id",
+    "title": "getProducts",
+    "version": "0.1.0",
+    "name": "getProducts",
+    "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>int</p> ",
+            "optional": true,
+            "field": "id",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/ProductsController.php",
+    "groupTitle": "Products",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/products/:id"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/v1/products",
+    "title": "storeProducts",
+    "version": "0.1.0",
+    "name": "storeProducts",
+    "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>double</p> ",
+            "optional": false,
+            "field": "price",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "description",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "lessons",
+            "description": "<p>Например '1,2,3,5'</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": false,
+            "field": "google_id",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/ProductsController.php",
+    "groupTitle": "Products",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/products"
+      }
+    ]
+  },
+  {
+    "type": "put",
+    "url": "/v1/products",
+    "title": "updateProducts",
+    "version": "0.1.0",
+    "name": "updateProducts",
+    "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>double</p> ",
+            "optional": true,
+            "field": "price",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "description",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "lessons",
+            "description": "<p>Например '1,2,3,5'</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>string</p> ",
+            "optional": true,
+            "field": "google_id",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/ProductsController.php",
+    "groupTitle": "Products",
+    "sampleRequest": [
+      {
+        "url": "/api/v1/products"
       }
     ]
   },
