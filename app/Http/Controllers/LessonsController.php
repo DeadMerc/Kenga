@@ -9,6 +9,10 @@ use App\Http\Requests;
 
 class LessonsController extends Controller
 {
+
+    public function edit($id){
+        return $this->getSchemaByModel(Lesson::first());
+    }
     /**
      * @api {post} /v1/lessons storeLesson
      * @apiVersion 0.1.0
@@ -56,5 +60,14 @@ class LessonsController extends Controller
      */
     public function showAll(Request $request){
         return $this->helpReturn(Lesson::all());
+    }
+
+    public function show(Request $request,$id){
+        return $this->helpReturn(Lesson::findorfail($id));
+    }
+
+    public function destroy($id){
+        $lesson = Lesson::where('id',$id)->delete();
+        return $this->helpInfo();
     }
 }

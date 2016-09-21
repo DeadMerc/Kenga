@@ -36,7 +36,7 @@ class Lesson extends Model
             /*
              * TODO: temp for test, default:0
              */
-            return 1;
+            return 0;
         } else {
             return null;
         }
